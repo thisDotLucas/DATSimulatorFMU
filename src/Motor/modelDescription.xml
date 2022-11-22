@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fmiModelDescription
+        fmiVersion="2.0"
+        modelName="com.open-simulation-platform.Motor"
+        guid="@FMU_UUID@"
+        description="An FMU that does mostly nothing. It has one input, which is ignored until its value is set to true. This will cause a failure on the subsequent call to step."
+        author="Lucas Fransman"
+        version="0.1">
+
+    <CoSimulation
+            modelIdentifier="Motor"
+            canHandleVariableCommunicationStepSize="true"/>
+
+    <ModelVariables>
+		<ScalarVariable name="angleIn"  valueReference="0" causality="input"  variability="continuous">
+			<Real start="0.0" />
+		</ScalarVariable>
+		<ScalarVariable name="torqueIn"  valueReference="1" causality="input"  variability="continuous">
+			<Real start="0.0" />
+		</ScalarVariable>
+		<ScalarVariable name="angleOut" valueReference="2" causality="output" variability="continuous">
+			<Real             />
+		</ScalarVariable>
+		<ScalarVariable name="torqueOut" valueReference="3" causality="output" variability="continuous">
+			<Real             />
+		</ScalarVariable>
+    </ModelVariables>
+
+	<ModelStructure>
+		<Outputs>
+			<Unknown index="3" />
+			<Unknown index="4" />
+		</Outputs>
+	</ModelStructure>
+
+</fmiModelDescription>

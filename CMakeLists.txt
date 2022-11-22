@@ -18,10 +18,8 @@ set(FMU_UUID_DIR "${CMAKE_BINARY_DIR}/fmu-uuids"
 
 # The names of the FMUs built in this project
 set(fmus
-    "fail"
-    "mock"
-    "null"
-    "vector"
+    "Motor"
+    "MotorController"
 )
 
 # ==============================================================================
@@ -133,8 +131,7 @@ foreach(fmuName IN LISTS fmus)
     add_library(${fmuLibraryTarget} MODULE
         "${fmuSourceModelDescription}"
         ${fmuSourceFiles}
-        ${cppfmuSourceFiles}
-    )
+        ${cppfmuSourceFiles})
     add_dependencies(${fmuLibraryTarget} ${fmuGuidTarget})
     target_include_directories(${fmuLibraryTarget} PRIVATE
         "${CMAKE_SOURCE_DIR}/fmi"
