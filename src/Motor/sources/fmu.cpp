@@ -4,6 +4,7 @@
 
 #include <cstring>
 #include <stdexcept>
+#include <cmath>
 
 class Slave : public cppfmu::SlaveInstance 
 {
@@ -53,12 +54,17 @@ public:
     }
 
     bool DoStep(cppfmu::FMIReal /*currentCommunicationPoint*/,
-                cppfmu::FMIReal /*communicationStepSize*/,
+                cppfmu::FMIReal stepSize/*communicationStepSize*/,
                 cppfmu::FMIBoolean /*newStep*/,
                 cppfmu::FMIReal & /*endOfStep*/) override 
     {
-        angleOut = angleIn;
-        torqueOut = torqueIn;
+        const double angleChangePerStep = 1 * stepSize;
+        if (std::abs(angleIn - angleOut) >= angleChangePerStep)
+            angleOut += (angleIn >= angleOut ? 1 : -1) * angleChangePerStep;
+
+        const double torqueChangePerStep = 1 * stepSize;
+        if (std::abs(torqueIn - torqueOut) >= torqueChangePerStep)
+            torqueOut += (torqueIn >= torqueOut ? 1 : -1) * torqueChangePerStep;
 
         return true;
     }

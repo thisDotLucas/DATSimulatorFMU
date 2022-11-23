@@ -157,4 +157,10 @@ foreach(fmuName IN LISTS fmus)
     endif()
 endforeach()
 
+if (DEFINED CMAKE_POST_BUILD_SCRIPT)
+    add_custom_command(TARGET ${fmuTarget} 
+                POST_BUILD 
+                COMMAND cmd /C ${CMAKE_POST_BUILD_SCRIPT})
+endif()
+
 source_group("Metadata" REGULAR_EXPRESSION "modelDescription.xml")

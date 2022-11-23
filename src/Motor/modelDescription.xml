@@ -3,7 +3,7 @@
         fmiVersion="2.0"
         modelName="com.open-simulation-platform.Motor"
         guid="@FMU_UUID@"
-        description="An FMU that does mostly nothing. It has one input, which is ignored until its value is set to true. This will cause a failure on the subsequent call to step."
+        description="An FMU that mimics a simple motor in our toy example."
         author="Lucas Fransman"
         version="0.1">
 
