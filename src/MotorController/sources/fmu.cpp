@@ -5,10 +5,10 @@
 #include <cstring>
 #include <stdexcept>
 
-class Slave : public cppfmu::SlaveInstance 
+class MotorController : public cppfmu::SlaveInstance 
 {
 public:
-    Slave() { Slave::Reset(); }
+    MotorController() { MotorController::Reset(); }
 
     void Reset() override 
     { 
@@ -77,5 +77,5 @@ cppfmu::UniquePtr<cppfmu::SlaveInstance> CppfmuInstantiateSlave(
     if (std::strcmp(fmuGUID, FMU_UUID) != 0)
         throw std::runtime_error("FMU GUID mismatch");
 
-    return cppfmu::AllocateUnique<Slave>(memory);
+    return cppfmu::AllocateUnique<MotorController>(memory);
 }
