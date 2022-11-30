@@ -12,10 +12,14 @@ public:
 
     void Reset() override 
     { 
-        angleIn = 0.0;
-        torqueIn = 0.0;
-        angleOut = 0.0;
-        torqueOut = 0.0;
+        motorFrontAngleIn = 0.0;
+        motorFrontSpeedIn = 0.0;
+        motorRearAngleIn = 0.0;
+        motorRearSpeedIn = 0.0;
+        motorFrontAngleOut = 0.0;
+        motorFrontSpeedOut = 0.0;
+        motorRearAngleOut = 0.0;
+        motorRearSpeedOut = 0.0;
     }
 
     void SetReal(const cppfmu::FMIValueReference vr[], std::size_t nvr, const cppfmu::FMIReal value[]) override 
@@ -23,13 +27,21 @@ public:
         for (std::size_t i = 0; i < nvr; i++) 
         {
             if (vr[i] == 0) 
-                angleIn = value[i];
+                motorFrontAngleIn = value[i];
             else if (vr[i] == 1)
-                torqueIn = value[i];
+                motorFrontSpeedIn = value[i];
             else if (vr[i] == 2)
-                angleOut = value[i];
+                motorRearAngleIn = value[i];
             else if (vr[i] == 3)
-                torqueOut = value[i];
+                motorRearSpeedIn = value[i];
+            else if (vr[i] == 4)
+                motorFrontAngleOut = value[i];
+            else if (vr[i] == 5)
+                motorFrontSpeedOut = value[i];
+            else if (vr[i] == 6)
+                motorRearAngleOut = value[i];
+            else if (vr[i] == 7)
+                motorRearSpeedOut = value[i];
             else 
                 throw std::logic_error("Invalid value reference");
         }
@@ -40,13 +52,21 @@ public:
         for (std::size_t i = 0; i < nvr; i++) 
         {
             if (vr[i] == 0)
-                value[i] = angleIn;
+                value[i] = motorFrontAngleIn;
             else if (vr[i] == 1)
-                value[i] = torqueIn;
+                value[i] = motorFrontSpeedIn;
             else if (vr[i] == 2)
-                value[i] = angleOut;
+                value[i] = motorRearAngleIn;
             else if (vr[i] == 3)
-                value[i] = torqueOut;
+                value[i] = motorRearSpeedIn;
+            else if (vr[i] == 4)
+                value[i] = motorFrontAngleOut;
+            else if (vr[i] == 5)
+                value[i] = motorFrontSpeedOut;
+            else if (vr[i] == 6)
+                value[i] = motorRearAngleOut;
+            else if (vr[i] == 7)
+                value[i] = motorRearSpeedOut;
             else
                 throw std::logic_error("Invalid value reference");
         }
@@ -57,14 +77,23 @@ public:
                 cppfmu::FMIBoolean /*newStep*/,
                 cppfmu::FMIReal & /*endOfStep*/) override 
     {
+        motorFrontAngleOut = motorFrontAngleIn;
+        motorFrontSpeedOut = motorFrontSpeedIn;
+        motorRearAngleOut = motorRearAngleIn;
+        motorRearSpeedOut = motorRearSpeedIn;
+
         return true;
     }
 
 private:
-    cppfmu::FMIReal angleIn;
-    cppfmu::FMIReal torqueIn;
-    cppfmu::FMIReal angleOut;
-    cppfmu::FMIReal torqueOut;
+    cppfmu::FMIReal motorFrontAngleIn;
+    cppfmu::FMIReal motorFrontSpeedIn;
+    cppfmu::FMIReal motorRearAngleIn;
+    cppfmu::FMIReal motorRearSpeedIn;
+    cppfmu::FMIReal motorFrontAngleOut;
+    cppfmu::FMIReal motorFrontSpeedOut;
+    cppfmu::FMIReal motorRearAngleOut;
+    cppfmu::FMIReal motorRearSpeedOut;
 };
 
 cppfmu::UniquePtr<cppfmu::SlaveInstance> CppfmuInstantiateSlave(

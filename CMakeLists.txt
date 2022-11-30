@@ -18,8 +18,11 @@ set(FMU_UUID_DIR "${CMAKE_BINARY_DIR}/fmu-uuids"
 
 # The names of the FMUs built in this project
 set(fmus
-    "Motor"
+    "MotorFront"
+    "MotorRear"
     "MotorController"
+    "WaypointTracking"
+    "HeadingAutopilot"
 )
 
 # ==============================================================================
@@ -47,6 +50,8 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
         endforeach()
     endif()
 endif()
+
+set (CMAKE_CXX_STANDARD 20)
 
 if(UNIX)
     # Remove the "lib" prefix on the generated .so files
@@ -131,7 +136,7 @@ foreach(fmuName IN LISTS fmus)
     add_library(${fmuLibraryTarget} MODULE
         "${fmuSourceModelDescription}"
         ${fmuSourceFiles}
-        ${cppfmuSourceFiles})
+        ${cppfmuSourceFiles} "src/WaypointTracking/sources/Tracker.h" "src/WaypointTracking/sources/Tracker.cpp" "src/HeadingAutopilot/sources/HeadingAutopilot.h" "src/HeadingAutopilot/sources/HeadingAutopilot.cpp")
     add_dependencies(${fmuLibraryTarget} ${fmuGuidTarget})
     target_include_directories(${fmuLibraryTarget} PRIVATE
         "${CMAKE_SOURCE_DIR}/fmi"

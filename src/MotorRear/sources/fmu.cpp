@@ -4,19 +4,18 @@
 
 #include <cstring>
 #include <stdexcept>
-#include <cmath>
 
-class Motor : public cppfmu::SlaveInstance 
+class MotorRear : public cppfmu::SlaveInstance 
 {
 public:
-    Motor() { Motor::Reset(); }
+    MotorRear() { MotorRear::Reset(); }
 
     void Reset() override 
     { 
         angleIn = 0.0;
-        torqueIn = 0.0;
+        speedIn = 0.0;
         angleOut = 0.0;
-        torqueOut = 0.0;
+        speedOut = 0.0;
     }
 
     void SetReal(const cppfmu::FMIValueReference vr[], std::size_t nvr, const cppfmu::FMIReal value[]) override 
@@ -26,11 +25,11 @@ public:
             if (vr[i] == 0) 
                 angleIn = value[i];
             else if (vr[i] == 1)
-                torqueIn = value[i];
+                speedIn = value[i];
             else if (vr[i] == 2)
                 angleOut = value[i];
             else if (vr[i] == 3)
-                torqueOut = value[i];
+                speedOut = value[i];
             else 
                 throw std::logic_error("Invalid value reference");
         }
@@ -43,18 +42,18 @@ public:
             if (vr[i] == 0)
                 value[i] = angleIn;
             else if (vr[i] == 1)
-                value[i] = torqueIn;
+                value[i] = speedIn;
             else if (vr[i] == 2)
                 value[i] = angleOut;
             else if (vr[i] == 3)
-                value[i] = torqueOut;
+                value[i] = speedOut;
             else
                 throw std::logic_error("Invalid value reference");
         }
     }
 
     bool DoStep(cppfmu::FMIReal /*currentCommunicationPoint*/,
-                cppfmu::FMIReal stepSize/*communicationStepSize*/,
+                cppfmu::FMIReal stepSize /*communicationStepSize*/,
                 cppfmu::FMIBoolean /*newStep*/,
                 cppfmu::FMIReal & /*endOfStep*/) override 
     {
@@ -62,18 +61,18 @@ public:
         if (std::abs(angleIn - angleOut) >= angleChangePerStep)
             angleOut += (angleIn >= angleOut ? 1 : -1) * angleChangePerStep;
 
-        const double torqueChangePerStep = 1 * stepSize;
-        if (std::abs(torqueIn - torqueOut) >= torqueChangePerStep)
-            torqueOut += (torqueIn >= torqueOut ? 1 : -1) * torqueChangePerStep;
+        const double speedChangePerStep = 1 * stepSize;
+        if (std::abs(speedIn - speedOut) >= speedChangePerStep)
+            speedOut += (speedIn >= speedOut ? 1 : -1) * speedChangePerStep;
 
         return true;
     }
 
 private:
     cppfmu::FMIReal angleIn;
-    cppfmu::FMIReal torqueIn;
+    cppfmu::FMIReal speedIn;
     cppfmu::FMIReal angleOut;
-    cppfmu::FMIReal torqueOut;
+    cppfmu::FMIReal speedOut;
 };
 
 cppfmu::UniquePtr<cppfmu::SlaveInstance> CppfmuInstantiateSlave(
@@ -86,5 +85,5 @@ cppfmu::UniquePtr<cppfmu::SlaveInstance> CppfmuInstantiateSlave(
     if (std::strcmp(fmuGUID, FMU_UUID) != 0)
         throw std::runtime_error("FMU GUID mismatch");
 
-    return cppfmu::AllocateUnique<Motor>(memory);
+    return cppfmu::AllocateUnique<MotorRear>(memory);
 }

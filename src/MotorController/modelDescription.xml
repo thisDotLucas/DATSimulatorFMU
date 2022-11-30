@@ -12,24 +12,38 @@
             canHandleVariableCommunicationStepSize="true"/>
 
     <ModelVariables>
-		<ScalarVariable name="angleIn"  valueReference="0" causality="input"  variability="continuous">
+		<ScalarVariable name="motorFrontAngleIn"  valueReference="0" causality="input"  variability="continuous">
 			<Real start="0.0" />
 		</ScalarVariable>
-		<ScalarVariable name="torqueIn"  valueReference="1" causality="input"  variability="continuous">
+		<ScalarVariable name="motorFrontSpeedIn"  valueReference="1" causality="input"  variability="continuous">
 			<Real start="0.0" />
 		</ScalarVariable>
-		<ScalarVariable name="angleOut" valueReference="2" causality="output" variability="continuous">
+		<ScalarVariable name="motorRearAngleIn"  valueReference="2" causality="input"  variability="continuous">
+			<Real start="0.0" />
+		</ScalarVariable>
+		<ScalarVariable name="motorRearSpeedIn"  valueReference="3" causality="input"  variability="continuous">
+			<Real start="0.0" />
+		</ScalarVariable>
+		<ScalarVariable name="motorFrontAngleOut" valueReference="4" causality="output" variability="continuous">
 			<Real             />
 		</ScalarVariable>
-		<ScalarVariable name="torqueOut" valueReference="3" causality="output" variability="continuous">
+		<ScalarVariable name="motorFrontSpeedOut" valueReference="5" causality="output" variability="continuous">
+			<Real             />
+		</ScalarVariable>
+		<ScalarVariable name="motorRearAngleOut" valueReference="6" causality="output" variability="continuous">
+			<Real             />
+		</ScalarVariable>
+		<ScalarVariable name="motorRearSpeedOut" valueReference="7" causality="output" variability="continuous">
 			<Real             />
 		</ScalarVariable>
     </ModelVariables>
 
 	<ModelStructure>
 		<Outputs>
-			<Unknown index="3" />
-			<Unknown index="4" />
+			<Unknown index="5" />
+			<Unknown index="6" />
+			<Unknown index="7" />
+			<Unknown index="8" />
 		</Outputs>
 	</ModelStructure>
 

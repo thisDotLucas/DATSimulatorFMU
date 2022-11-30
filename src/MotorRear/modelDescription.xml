@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <fmiModelDescription
         fmiVersion="2.0"
-        modelName="com.open-simulation-platform.Motor"
+        modelName="com.open-simulation-platform.MotorRear"
         guid="@FMU_UUID@"
-        description="An FMU that mimics a simple motor in our toy example."
+        description="An FMU that mimics a simple motor controller in our toy example."
         author="Lucas Fransman"
         version="0.1">
 
     <CoSimulation
-            modelIdentifier="Motor"
+            modelIdentifier="MotorRear"
             canHandleVariableCommunicationStepSize="true"/>
 
     <ModelVariables>
 		<ScalarVariable name="angleIn"  valueReference="0" causality="input"  variability="continuous">
 			<Real start="0.0" />
 		</ScalarVariable>
-		<ScalarVariable name="torqueIn"  valueReference="1" causality="input"  variability="continuous">
+		<ScalarVariable name="speedIn"  valueReference="1" causality="input"  variability="continuous">
 			<Real start="0.0" />
 		</ScalarVariable>
 		<ScalarVariable name="angleOut" valueReference="2" causality="output" variability="continuous">
 			<Real             />
 		</ScalarVariable>
-		<ScalarVariable name="torqueOut" valueReference="3" causality="output" variability="continuous">
+		<ScalarVariable name="speedOut" valueReference="3" causality="output" variability="continuous">
 			<Real             />
 		</ScalarVariable>
     </ModelVariables>

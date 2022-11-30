@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fmiModelDescription
+        fmiVersion="2.0"
+        modelName="com.open-simulation-platform.HeadingAutopilot"
+        guid="@FMU_UUID@"
+        description="An FMU that mimics a simple motor controller in our toy example."
+        author="Lucas Fransman"
+        version="0.1">
+
+    <CoSimulation
+            modelIdentifier="HeadingAutopilot"
+            canHandleVariableCommunicationStepSize="true"/>
+
+    <ModelVariables>
+		<ScalarVariable name="targetBoatHeadingIn"  valueReference="0" causality="input"  variability="continuous">
+			<Real start="0.0" />
+		</ScalarVariable>
+		<ScalarVariable name="targetBoatSpeedIn"  valueReference="1" causality="input"  variability="continuous">
+			<Real start="0.0" />
+		</ScalarVariable>
+		<ScalarVariable name="surgeIn"  valueReference="2" causality="input"  variability="continuous">
+			<Real start="0.0" />
+		</ScalarVariable>
+		<ScalarVariable name="swayIn"  valueReference="3" causality="input"  variability="continuous">
+			<Real start="0.0" />
+		</ScalarVariable>
+		<ScalarVariable name="yawRateIn"  valueReference="4" causality="input"  variability="continuous">
+			<Real start="0.0" />
+		</ScalarVariable>
+		<ScalarVariable name="motorRearHeadingOut" valueReference="5" causality="output" variability="continuous">
+			<Real             />
+		</ScalarVariable>
+		<ScalarVariable name="motorRearSpeedOut" valueReference="6" causality="output" variability="continuous">
+			<Real             />
+		</ScalarVariable>
+		<ScalarVariable name="motorFrontHeadingOut" valueReference="7" causality="output" variability="continuous">
+			<Real             />
+		</ScalarVariable>
+		<ScalarVariable name="motorFrontSpeedOut" valueReference="8" causality="output" variability="continuous">
+			<Real             />
+		</ScalarVariable>
+    </ModelVariables>
+
+	<ModelStructure>
+		<Outputs>
+			<Unknown index="6" />
+			<Unknown index="7" />
+			<Unknown index="8" />
+			<Unknown index="9" />
+		</Outputs>
+	</ModelStructure>
+
+</fmiModelDescription>
