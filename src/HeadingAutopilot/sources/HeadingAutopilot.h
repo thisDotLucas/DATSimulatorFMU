@@ -15,8 +15,8 @@ struct MotorValues
 {
 	MotorValues(const double _angle, const double _speed) : angle(_angle), speed(_speed) {}
 
-	const double angle;
-	const double speed;
+	double angle;
+	double speed;
 	const double sway{ 0 }; // Always zero
 };
 

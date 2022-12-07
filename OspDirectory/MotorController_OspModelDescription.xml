@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<OspModelDescription xmlns="https://open-simulation-platform.com/OspModelDescription/1.0.0" version="1.0">
+
+    <VariableGroups>
+		
+		<Generic name="MotorControllerFrontAngleIn">
+			<Variable ref="motorFrontAngleIn"/>
+        </Generic>
+		
+		<Generic name="MotorControllerFrontAngleOut">
+			<Variable ref="motorFrontAngleOut"/>
+        </Generic>
+		
+		<Generic name="MotorControllerFrontSpeedIn">
+			<Variable ref="motorFrontSpeedIn"/>
+        </Generic>
+		
+		<Generic name="MotorControllerFrontSpeedOut">
+			<Variable ref="motorFrontSpeedOut"/>
+        </Generic>
+		
+		<Generic name="MotorControllerRearAngleIn">
+			<Variable ref="motorRearAngleIn"/>
+        </Generic>
+		
+		<Generic name="MotorControllerRearAngleOut">
+			<Variable ref="motorRearAngleOut"/>
+        </Generic>
+		
+		<Generic name="MotorControllerRearSpeedIn">
+			<Variable ref="motorRearSpeedIn"/>
+        </Generic>
+		
+		<Generic name="MotorControllerRearSpeedOut">
+			<Variable ref="motorRearSpeedOut"/>
+        </Generic>
+		
+		<Generic name="MotorControllerDeltaLatitudeOut">
+			<Variable ref="deltaLatitudeOut"/>
+        </Generic>
+		
+		<Generic name="MotorControllerDeltaLongitudeOut">
+			<Variable ref="deltaLongitudeOut"/>
+        </Generic>
+		
+		<Generic name="MotorControllerHeading">
+			<Variable ref="heading"/>
+        </Generic>
+		
+    </VariableGroups>
+	
+</OspModelDescription>

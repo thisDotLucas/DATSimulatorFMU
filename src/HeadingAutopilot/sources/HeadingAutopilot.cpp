@@ -56,14 +56,19 @@ namespace
 			Speed_motor2 = 100;
 		}
 
-		return { { anglemotor1, Speed_motor1 }, { anglemotor2, Speed_motor2 } };
+		return { { anglemotor1, 20.0 /* Speed hardcoded */ }, { anglemotor2, 20.0 /* Speed hardcoded */ } };
 	}
 }
 
 std::pair<MotorValues, MotorValues> HeadingAP::calculateMotorValues(const MotorValues& currentValues, const MotorValues& targetValues)
 {
-	const MotorValues diff = targetValues - currentValues;
+	MotorValues _curr = currentValues;
+	MotorValues _target = targetValues;
+	
+	_curr.angle = _curr.angle * (std::numbers::pi / 180.0);
+	_target.angle = _target.angle * (std::numbers::pi / 180.0);
 
-	return zeroDifference(diff) ? std::pair<MotorValues, MotorValues>{ { 0.0, 0.0 }, { 0.0, 0.0 } } : 
-		thrusterallocation(diff.speed, diff.sway, diff.angle);
+	const MotorValues diff = _target - _curr;
+
+	return thrusterallocation(1.0 /* Speed hardcoded */, diff.sway, diff.angle);
 }

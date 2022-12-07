@@ -4,6 +4,7 @@
 
 #include <cstring>
 #include <stdexcept>
+#include <numbers>
 
 class MotorController : public cppfmu::SlaveInstance 
 {
@@ -20,6 +21,8 @@ public:
         motorFrontSpeedOut = 0.0;
         motorRearAngleOut = 0.0;
         motorRearSpeedOut = 0.0;
+        deltaLatitudeOut = 0.0;
+        deltaLongitudeOut = 0.0;
     }
 
     void SetReal(const cppfmu::FMIValueReference vr[], std::size_t nvr, const cppfmu::FMIReal value[]) override 
@@ -42,6 +45,12 @@ public:
                 motorRearAngleOut = value[i];
             else if (vr[i] == 7)
                 motorRearSpeedOut = value[i];
+            else if (vr[i] == 8)
+                deltaLatitudeOut = value[i];
+            else if (vr[i] == 9)
+                deltaLongitudeOut = value[i];
+            else if (vr[i] == 10)
+                heading = value[i];
             else 
                 throw std::logic_error("Invalid value reference");
         }
@@ -67,13 +76,19 @@ public:
                 value[i] = motorRearAngleOut;
             else if (vr[i] == 7)
                 value[i] = motorRearSpeedOut;
+            else if (vr[i] == 8)
+                value[i] = deltaLatitudeOut;
+            else if (vr[i] == 9)
+                value[i] = deltaLongitudeOut;
+            else if (vr[i] == 10)
+                value[i] = heading;
             else
                 throw std::logic_error("Invalid value reference");
         }
     }
 
     bool DoStep(cppfmu::FMIReal /*currentCommunicationPoint*/,
-                cppfmu::FMIReal /*communicationStepSize*/,
+                cppfmu::FMIReal stepSize /*communicationStepSize*/,
                 cppfmu::FMIBoolean /*newStep*/,
                 cppfmu::FMIReal & /*endOfStep*/) override 
     {
@@ -81,6 +96,12 @@ public:
         motorFrontSpeedOut = motorFrontSpeedIn;
         motorRearAngleOut = motorRearAngleIn;
         motorRearSpeedOut = motorRearSpeedIn;
+
+        // 0.00001 is 1.1 m 
+        const double maxVelocity = 0.00002 /* per second */ * stepSize; // Arbitrary
+
+        deltaLatitudeOut = (motorFrontSpeedOut / 100) * maxVelocity * cos(heading * (std::numbers::pi / 180));
+        deltaLongitudeOut = (motorFrontSpeedOut / 100) * maxVelocity * sin(heading * (std::numbers::pi / 180));
 
         return true;
     }
@@ -94,6 +115,10 @@ private:
     cppfmu::FMIReal motorFrontSpeedOut;
     cppfmu::FMIReal motorRearAngleOut;
     cppfmu::FMIReal motorRearSpeedOut;
+
+    cppfmu::FMIReal deltaLatitudeOut;
+    cppfmu::FMIReal deltaLongitudeOut;
+    cppfmu::FMIReal heading;
 };
 
 cppfmu::UniquePtr<cppfmu::SlaveInstance> CppfmuInstantiateSlave(

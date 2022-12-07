@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<OspSystemStructure xmlns="http://opensimulationplatform.com/MSMI/OSPSystemStructure"
+                    version="0.1">
+    <StartTime>0.0</StartTime>
+    <BaseStepSize>0.01</BaseStepSize>
+    <Algorithm>fixedStep</Algorithm>
+    <Simulators>
+		<Simulator name="MotorFront" source="MotorFront.fmu" stepSize="0.1"/>
+        <Simulator name="MotorRear" source="MotorRear.fmu" stepSize="0.1"/>
+        <Simulator name="MotorController" source="MotorController.fmu" stepSize="0.1"/>
+		<Simulator name="WaypointTracking" source="WaypointTracking.fmu" stepSize="0.1"/>
+		<Simulator name="HeadingAutopilot" source="HeadingAutopilot.fmu" stepSize="0.1"/>
+		<Simulator name="NavigationService" source="NavigationService.fmu" stepSize="0.1"/>
+    </Simulators>
+
+    <Connections>
+		
+		<VariableConnection>
+            <Variable simulator="MotorController" name="motorRearAngleOut"/>
+            <Variable simulator="MotorRear" name="angleIn"/>
+        </VariableConnection>
+		
+		<VariableConnection>
+            <Variable simulator="MotorController" name="motorRearSpeedOut"/>
+            <Variable simulator="MotorRear" name="speedIn"/>
+        </VariableConnection>
+		
+		<VariableConnection>
+            <Variable simulator="MotorController" name="motorFrontAngleOut"/>
+            <Variable simulator="MotorFront" name="angleIn"/>
+        </VariableConnection>
+		
+		<VariableConnection>
+            <Variable simulator="MotorController" name="motorFrontSpeedOut"/>
+            <Variable simulator="MotorFront" name="speedIn"/>
+        </VariableConnection>
+
+
+		<VariableConnection>
+            <Variable simulator="WaypointTracking" name="targetBoatHeadingOut"/>
+            <Variable simulator="HeadingAutopilot" name="targetBoatHeadingIn"/>
+        </VariableConnection>
+		
+		<VariableConnection>
+            <Variable simulator="WaypointTracking" name="targetBoatSpeedOut"/>
+            <Variable simulator="HeadingAutopilot" name="targetBoatSpeedIn"/>
+        </VariableConnection>
+		
+		
+		<VariableConnection>
+            <Variable simulator="HeadingAutopilot" name="motorFrontHeadingOut"/>
+            <Variable simulator="MotorController" name="motorFrontAngleIn"/>
+        </VariableConnection>
+		
+		<VariableConnection>
+            <Variable simulator="HeadingAutopilot" name="motorFrontSpeedOut"/>
+            <Variable simulator="MotorController" name="motorFrontSpeedIn"/>
+        </VariableConnection>
+		
+		<VariableConnection>
+            <Variable simulator="HeadingAutopilot" name="motorRearHeadingOut"/>
+            <Variable simulator="MotorController" name="motorRearAngleIn"/>
+        </VariableConnection>
+		
+		<VariableConnection>
+            <Variable simulator="HeadingAutopilot" name="motorRearSpeedOut"/>
+            <Variable simulator="MotorController" name="motorRearSpeedIn"/>
+        </VariableConnection>
+		
+		
+		<VariableConnection>
+            <Variable simulator="MotorController" name="deltaLatitudeOut"/>
+            <Variable simulator="NavigationService" name="deltaLatitudeIn"/>
+        </VariableConnection>
+		
+		<VariableConnection>
+            <Variable simulator="MotorController" name="deltaLongitudeOut"/>
+            <Variable simulator="NavigationService" name="deltaLongitudeIn"/>
+        </VariableConnection>
+		
+		<VariableConnection>
+            <Variable simulator="NavigationService" name="latitudeOut"/>
+            <Variable simulator="WaypointTracking" name="latitudeIn"/>
+        </VariableConnection>
+		
+		<VariableConnection>
+            <Variable simulator="NavigationService" name="longitudeOut"/>
+            <Variable simulator="WaypointTracking" name="longitudeIn"/>
+        </VariableConnection>
+		
+				<VariableConnection>
+            <Variable simulator="WaypointTracking" name="targetBoatHeadingOut"/>
+            <Variable simulator="MotorController" name="heading"/>
+        </VariableConnection>
+		
+    </Connections>
+	
+</OspSystemStructure>

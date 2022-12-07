@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fmiModelDescription
+        fmiVersion="2.0"
+        modelName="com.open-simulation-platform.NavigationService"
+        guid="@FMU_UUID@"
+        description="An FMU that mimics a simple motor controller in our toy example."
+        author="Lucas Fransman"
+        version="0.1">
+
+	<CoSimulation
+            modelIdentifier="NavigationService"
+            canHandleVariableCommunicationStepSize="true"/>
+
+	<ModelVariables>
+		<ScalarVariable name="deltaLatitudeIn"  valueReference="0" causality="input"  variability="continuous">
+			<Real start="0.0" />
+		</ScalarVariable>
+		<ScalarVariable name="deltaLongitudeIn"  valueReference="1" causality="input"  variability="continuous">
+			<Real start="0.0" />
+		</ScalarVariable>
+		<ScalarVariable name="latitudeOut" valueReference="2" causality="output" variability="continuous">
+			<Real             />
+		</ScalarVariable>
+		<ScalarVariable name="longitudeOut" valueReference="3" causality="output" variability="continuous">
+			<Real             />
+		</ScalarVariable>
+	</ModelVariables>
+
+	<ModelStructure>
+		<Outputs>
+			<Unknown index="3" />
+			<Unknown index="4" />
+		</Outputs>
+	</ModelStructure>
+
+</fmiModelDescription>

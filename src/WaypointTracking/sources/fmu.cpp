@@ -9,7 +9,7 @@
 #include "Tracker.h"
 #include <ranges>
 
-std::vector<GPSCoordinate> rectangle{ { 60.0001, 20.0 }, { 60.0001, 19.9993 }, { 60.000, 19.9993 }, { 60.000, 20.0000 } };
+std::vector<DecimalDegree> rectangle{ { 60.0001, 20.0 }, { 60.0001, 19.9993 }, { 60.000, 19.9993 }, { 60.000, 20.0000 } };
 
 class WaypointTracking : public cppfmu::SlaveInstance
 {
@@ -22,6 +22,7 @@ public:
         longitudeIn = 0.0;
         targetBoatHeadingOut = 0.0;
         targetBoatSpeedOut = 0.0;
+        status = "";
     }
 
     void SetReal(const cppfmu::FMIValueReference vr[], std::size_t nvr, const cppfmu::FMIReal value[]) override 
@@ -58,6 +59,28 @@ public:
         }
     }
 
+    void SetString(const cppfmu::FMIValueReference vr[], std::size_t nvr, const cppfmu::FMIString value[]) override
+    {
+        for (std::size_t i = 0; i < nvr; i++)
+        {
+            if (vr[i] == 0)
+                status = value[i];
+            else
+                throw std::logic_error("Invalid value reference");
+        }
+    }
+
+    void GetString(const cppfmu::FMIValueReference vr[], std::size_t nvr, cppfmu::FMIString value[]) const override
+    {
+        for (std::size_t i = 0; i < nvr; i++)
+        {
+            if (vr[i] == 0)
+                value[i] = status;
+            else
+                throw std::logic_error("Invalid value reference");
+        }
+    }
+
     bool DoStep(cppfmu::FMIReal /*currentCommunicationPoint*/,
                 cppfmu::FMIReal /*communicationStepSize*/,
                 cppfmu::FMIBoolean /*newStep*/,
@@ -67,6 +90,8 @@ public:
 
         targetBoatSpeedOut = speed;
         targetBoatHeadingOut = heading;
+
+        status = m_tracker.status({ latitudeIn, longitudeIn });
 
         return true;
     }
@@ -78,6 +103,8 @@ private:
     cppfmu::FMIReal longitudeIn;
     cppfmu::FMIReal targetBoatHeadingOut;
     cppfmu::FMIReal targetBoatSpeedOut;
+    
+    cppfmu::FMIString status;
 };
 
 

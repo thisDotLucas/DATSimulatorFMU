@@ -1,0 +1,23 @@
+{ 
+  "description": "Test scenario",
+  "defaults": 
+  {
+    "model": "MotorController",
+    "action": "override"
+  },
+  "events": [
+	{
+      "time": 0.0,
+      "variable": "latitudeOut",
+	  "model": "NavigationService",
+      "value": 60.000
+    },
+	{
+      "time": 0.0,
+      "variable": "longitudeOut",
+	  "model": "NavigationService",
+      "value": 19.9993
+    }
+  ],
+  "end": 0.0
+}

@@ -96,6 +96,11 @@ public:
     {
         const auto& [motorFront, motorRear] = m_headingAutopilot.calculateMotorValues({ yawRateIn, surgeIn }, { targetBoatHeadingIn, targetBoatSpeedIn });
 
+        motorFrontHeadingOut = motorFront.angle;
+        motorFrontSpeedOut = motorFront.speed;
+        motorRearHeadingOut = motorRear.angle;
+        motorRearSpeedOut = motorRear.speed;
+
         return true;
     }
 

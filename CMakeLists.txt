@@ -23,6 +23,7 @@ set(fmus
     "MotorController"
     "WaypointTracking"
     "HeadingAutopilot"
+    "NavigationService"
 )
 
 # ==============================================================================
@@ -169,3 +170,4 @@ if (DEFINED CMAKE_POST_BUILD_SCRIPT)
 endif()
 
 source_group("Metadata" REGULAR_EXPRESSION "modelDescription.xml")
+add_subdirectory(tests)

@@ -1,6 +1,7 @@
 #include "Tracker.h"
 #include <cmath>
 #include <numbers>
+#include <sstream>
 
 namespace
 {
@@ -8,7 +9,7 @@ namespace
 
     constexpr double toRadians(const double degrees) { return degrees * pi() / 180; }
 
-	double distance(const GPSCoordinate& c1, const GPSCoordinate& c2)
+	double distance(const DecimalDegree& c1, const DecimalDegree& c2)
 	{
         // Calculates the distance between two points using the Haversine formula
         constexpr double RADIUS_OF_EARTH_METRES = 6371e3;
@@ -25,7 +26,7 @@ namespace
         return RADIUS_OF_EARTH_METRES * c;
 	}
 
-    double bearing(const GPSCoordinate& from, const GPSCoordinate& to)
+    double bearing(const DecimalDegree& from, const DecimalDegree& to)
     {
         const double phiA = toRadians(from.latitude);
         const double lambdaA = toRadians(from.longitude);
@@ -40,7 +41,7 @@ namespace
     }
 }
 
-std::pair<double, double> Tracker::track(const GPSCoordinate& currentCoordinate)
+std::pair<double, double> Tracker::track(const DecimalDegree& currentCoordinate)
 {
     if (m_route.empty() || m_targetCoordinate >= m_route.size())
         return { 0.0, 0.0 }; // Route has not been defined or last traget ha been reached -> Stay still/Stop
@@ -54,4 +55,16 @@ std::pair<double, double> Tracker::track(const GPSCoordinate& currentCoordinate)
 
     constexpr double SPEED = 20.0; // Hardcoded at 20% thrust
 	return { SPEED, bearing(currentCoordinate, m_route.at(m_targetCoordinate)) };
+}
+
+const char* Tracker::status(const DecimalDegree& currentCoordinate) const
+{
+    char* s = new char[200];
+    if (m_targetCoordinate >= m_route.size())
+       strcpy(s, "Destination reached.");
+    else
+        strcpy(s, std::string("I'm going to waypoint number " + std::to_string(m_targetCoordinate + 1) + " remaining distance is "
+            + std::to_string(distance(currentCoordinate, m_route.at(m_targetCoordinate))) + ".").c_str());
+
+    return s;
 }

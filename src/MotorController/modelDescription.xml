@@ -36,6 +36,15 @@
 		<ScalarVariable name="motorRearSpeedOut" valueReference="7" causality="output" variability="continuous">
 			<Real             />
 		</ScalarVariable>
+		<ScalarVariable name="deltaLatitudeOut" valueReference="8" causality="output" variability="continuous">
+			<Real             />
+		</ScalarVariable>
+		<ScalarVariable name="deltaLongitudeOut" valueReference="9" causality="output" variability="continuous">
+			<Real             />
+		</ScalarVariable>
+		<ScalarVariable name="heading"  valueReference="10" causality="input"  variability="continuous">
+			<Real start="0.0" />
+		</ScalarVariable>
     </ModelVariables>
 
 	<ModelStructure>
@@ -44,6 +53,8 @@
 			<Unknown index="6" />
 			<Unknown index="7" />
 			<Unknown index="8" />
+			<Unknown index="9" />
+			<Unknown index="10" />
 		</Outputs>
 	</ModelStructure>
 

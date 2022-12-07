@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<OspModelDescription xmlns="https://open-simulation-platform.com/OspModelDescription/1.0.0" version="1.0">
+
+    <VariableGroups>
+		
+		<Generic name="NavigationServiceDeltaLatitudeIn">
+			<Variable ref="deltaLatitudeIn"/>
+        </Generic>
+		
+		<Generic name="NavigationServiceDeltaLongitudeIn">
+			<Variable ref="deltaLongitudeIn"/>
+        </Generic>
+		
+		<Generic name="NavigationServiceLatitudeOut">
+			<Variable ref="latitudeOut"/>
+        </Generic>
+		
+		<Generic name="NavigationServiceLongitudeIn">
+			<Variable ref="longitudeOut"/>
+        </Generic>
+		
+    </VariableGroups>
+	
+</OspModelDescription>

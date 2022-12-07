@@ -1,9 +1,9 @@
 #include <vector>
+#include <string>
 
-
-struct GPSCoordinate
+struct DecimalDegree
 {
-    GPSCoordinate(const double _latitude, const double _longitude) : latitude(_latitude), longitude(_longitude) {}
+    DecimalDegree(const double _latitude, const double _longitude) : latitude(_latitude), longitude(_longitude) {}
 
     double latitude;
     double longitude;
@@ -12,11 +12,12 @@ struct GPSCoordinate
 class Tracker
 {
 public:
-    Tracker(std::vector<GPSCoordinate> route) : m_route(route) {}
+    Tracker(std::vector<DecimalDegree> route) : m_route(route) {}
 
-    std::pair<double, double> track(const GPSCoordinate& currentCoordinate);
+    std::pair<double, double> track(const DecimalDegree& currentCoordinate);
+    const char* status(const DecimalDegree& currentCoordinate) const;
 
 private:
     size_t m_targetCoordinate{};
-    std::vector<GPSCoordinate> m_route;
+    std::vector<DecimalDegree> m_route;
 };

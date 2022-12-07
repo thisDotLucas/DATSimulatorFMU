@@ -24,12 +24,16 @@
 		<ScalarVariable name="targetBoatSpeedOut" valueReference="3" causality="output" variability="continuous">
 			<Real             />
 		</ScalarVariable>
+		<ScalarVariable name="status" valueReference="0" causality="output" variability="discrete">
+			<String start=""/>
+		</ScalarVariable>
     </ModelVariables>
 
 	<ModelStructure>
 		<Outputs>
 			<Unknown index="3" />
 			<Unknown index="4" />
+			<Unknown index="5" />
 		</Outputs>
 	</ModelStructure>
 

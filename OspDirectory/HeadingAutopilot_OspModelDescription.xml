@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<OspModelDescription xmlns="https://open-simulation-platform.com/OspModelDescription/1.0.0" version="1.0">
+
+    <VariableGroups>
+		
+		<Generic name="HeadingAutopilotTargetBoatHeadingIn">
+			<Variable ref="targetBoatHeadingIn"/>
+        </Generic>
+		
+		<Generic name="HeadingAutopilotTargetBoatSpeedIn">
+			<Variable ref="targetBoatSpeedIn"/>
+        </Generic>
+		
+		<Generic name="HeadingAutopilotSurgeIn">
+			<Variable ref="surgeIn"/>
+        </Generic>
+		
+		<Generic name="HeadingAutopilotSwayIn">
+			<Variable ref="swayIn"/>
+        </Generic>
+		
+		<Generic name="HeadingAutopilotYawRateIn">
+			<Variable ref="yawRateIn"/>
+        </Generic>
+		
+		<Generic name="HeadingAutopilotMotorRearHeadingOut">
+			<Variable ref="motorRearHeadingOut"/>
+        </Generic>
+		
+		<Generic name="HeadingAutopilotMotorRearSpeedOut">
+			<Variable ref="motorRearSpeedOut"/>
+        </Generic>
+		
+		<Generic name="HeadingAutopilotMotorFrontHeadingOut">
+			<Variable ref="motorFrontHeadingOut"/>
+        </Generic>
+		
+		<Generic name="HeadingAutopilotMotorFrontSpeedOut">
+			<Variable ref="motorFrontSpeedOut"/>
+        </Generic>		
+		
+    </VariableGroups>
+	
+</OspModelDescription>

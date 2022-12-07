@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<OspModelDescription xmlns="https://open-simulation-platform.com/OspModelDescription/1.0.0" version="1.0">
+
+    <VariableGroups>
+		
+		<Generic name="MotorAngleIn">
+			<Variable ref="angleIn"/>
+        </Generic>
+		
+		<Generic name="MotorAngleOut">
+			<Variable ref="angleOut"/>
+        </Generic>
+		
+		<Generic name="MotorSpeedIn">
+			<Variable ref="speedIn"/>
+        </Generic>
+		
+		<Generic name="MotorSpeedOut">
+			<Variable ref="speedOut"/>
+        </Generic>
+		
+    </VariableGroups>
+	
+</OspModelDescription>
